@@ -1,5 +1,5 @@
 {
-    "name": "Lithrun/forum-widgets-core",
+    "name": "lithrun/forum-widgets-core",
     "description": "Core Extension for Managing Forum Widgets",
     "keywords": [
         "flarum", "widgets", "framework", "core"
