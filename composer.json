@@ -31,6 +31,9 @@
             "role": "Developer"
         }
     ],
+    "replace": {
+        "afrux/forum-widgets-core":"0.1.7"
+    },
     "autoload": {
         "psr-4": {
             "Afrux\\ForumWidgets\\": "src/"
