@@ -1,24 +1,19 @@
-name: JavaScript
+name: Frontend
 
-on:
-  push:
-    branches:
-      - main
+on: [workflow_dispatch, push, pull_request]
 
 jobs:
-  build:
-    name: JS / Build
-    runs-on: ubuntu-latest
+  run:
+    uses: flarum/framework/.github/workflows/REUSABLE_frontend.yml@main
+    with:
+      enable_bundlewatch: false
+      enable_prettier: true
+      enable_typescript: false
 
-    steps:
-      # Our action will install npm, cd into `./js`, run `npm run build` and
-      # `npm run build-typings`, then commit and upload any changes
-      - name: Build production JS
-        uses: flarum/action-build@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          build_script: build # npm run build
-          package_manager: npm # Use NPM, not Yarn
-          js_path: ./js # JS located in `./js`
-          do_not_commit: false # Commit built JS by default
-          commit_all_dirty: false
+      frontend_directory: ./js
+      backend_directory: .
+      js_package_manager: yarn
+      main_git_branch: main
+
+    secrets:
+      bundlewatch_github_token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
