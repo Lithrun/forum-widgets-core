@@ -1,33 +1,20 @@
-name: JavaScript
+name: Flarum Build
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
   build:
-    name: JS / Build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Restore npm cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('js/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      # Our action will install npm, cd into `./js`, run `npm run build` and
-      # `npm run build-typings`, then commit and upload any changes
-      - name: Build production JS
-        uses: flarum/action-build@2
+      - uses: actions/checkout@master
+      - uses: flarum/action-build@2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          build_script: build
-          package_manager: yarn
-          typings_script: build-typings
+          build_script: build # npm run build
+          build_typings_script: build-typings # npm run build-typings
+          test_script: test # npm run test
+          package_manager: npm # Use NPM, not Yarn
+          js_path: ./js # JS located in `./js`
+          do_not_commit: false # Commit built JS by default
+          commit_all_dirty: false
